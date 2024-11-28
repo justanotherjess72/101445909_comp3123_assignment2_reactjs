@@ -19,3 +19,5 @@ services:
       - ./backend:/usr/src/api/app
     working_dir: /usr/src/api/app
     command: node server.js
+
+
