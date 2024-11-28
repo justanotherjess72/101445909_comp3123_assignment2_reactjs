@@ -2,9 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const authRoutes = require('./src/api/routes/authRoutes'); 
+const authRoutes = require('./api/routes/authRoutes'); 
 
 dotenv.config();
+console.log("Mongo URI:", process.env.MONGODB_URI);
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use('/api/auth', authRoutes);
 
 // Database connection
 mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to the database');
   })

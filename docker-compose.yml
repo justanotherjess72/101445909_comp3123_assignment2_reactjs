@@ -1,23 +1,37 @@
 version: '3'
+
 services:
   frontend:
+    image: frontend
     build:
       context: ./frontend
     ports:
       - "3000:3000"
+    depends_on:
+      - backend
     volumes:
       - ./frontend:/usr/src/app
     working_dir: /usr/src/app
+    environment:
+      - REACT_APP_API_URL=http://backend:5000
     command: npm start
 
   backend:
+    image: backend
     build:
       context: ./backend
     ports:
       - "5000:5000"
+    depends_on:
+      - mongo
     volumes:
       - ./backend:/usr/src/api/app
     working_dir: /usr/src/api/app
-    command: node server.js
+    command: node src/server.js
 
-
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - "27017:27017"
