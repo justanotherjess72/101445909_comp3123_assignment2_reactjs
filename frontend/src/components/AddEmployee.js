@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const AddEmployee = ({ onEmployeeAdded }) => {
-  const [employee, setEmployee] = useState({
-    name: '',
-    department: '',
+const AddEmployee = () => {
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
     position: '',
-    salary: ''
+    salary: '',
+    date_of_joining: '',
+    department: ''
   });
+
+  const history = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEmployee((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value
     }));
@@ -20,55 +26,26 @@ const AddEmployee = ({ onEmployeeAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/employees', employee);
-      onEmployeeAdded();
-      setEmployee({
-        name: '',
-        department: '',
-        position: '',
-        salary: ''
-      });
+      const response = await axios.post('http://localhost:5000/api/employees', formData);
+      alert('Employee added successfully!');
+      history.push('/employee-list'); // Redirect to employee list after adding
     } catch (error) {
       console.error('Error adding employee:', error);
+      alert('Failed to add employee.');
     }
   };
 
   return (
     <div>
-      <h2>Add Employee</h2>
+      <h2>Add New Employee</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={employee.name}
-          onChange={handleChange}
-          placeholder="Name"
-          required
-        />
-        <input
-          type="text"
-          name="department"
-          value={employee.department}
-          onChange={handleChange}
-          placeholder="Department"
-          required
-        />
-        <input
-          type="text"
-          name="position"
-          value={employee.position}
-          onChange={handleChange}
-          placeholder="Position"
-          required
-        />
-        <input
-          type="number"
-          name="salary"
-          value={employee.salary}
-          onChange={handleChange}
-          placeholder="Salary"
-          required
-        />
+        <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} required />
+        <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="text" name="position" placeholder="Position" onChange={handleChange} required />
+        <input type="number" name="salary" placeholder="Salary" onChange={handleChange} required />
+        <input type="date" name="date_of_joining" placeholder="Date of Joining" onChange={handleChange} required />
+        <input type="text" name="department" placeholder="Department" onChange={handleChange} required />
         <button type="submit">Add Employee</button>
       </form>
     </div>

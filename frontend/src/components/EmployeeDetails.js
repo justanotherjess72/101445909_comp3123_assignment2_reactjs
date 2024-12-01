@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import '../styles/employee-details.css';
 
 const EmployeeDetails = () => {
   const [employee, setEmployee] = useState(null);

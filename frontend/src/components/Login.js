@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/login.css';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
-  const history = useNavigate();
+  const navigate = useNavigate(); // Correct usage of navigate hook in React Router v6
+
+  // Check if user is already authenticated and redirect to dashboard
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      navigate('/employee-list'); 
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,14 +26,19 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
-      // Replace with your API endpoint for login
+      // Send login request to backend
       const response = await axios.post('http://localhost:5000/api/auth/login', credentials);
-      // Store the token in local storage or cookies
+      
+      // Store token in localStorage and redirect to dashboard
       localStorage.setItem('authToken', response.data.token);
-      history.push('/dashboard'); // Redirect to dashboard or other protected page
+      console.log('Token stored:', localStorage.getItem('authToken')); 
+      
+      // Use navigate() for redirect
+      navigate('/employee-list');
     } catch (error) {
-      setError('Invalid credentials');
+      setError('Invalid login credentials');
     }
   };
 

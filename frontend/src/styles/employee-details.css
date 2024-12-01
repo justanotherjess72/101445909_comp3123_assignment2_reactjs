@@ -1,0 +1,66 @@
+/* employee-details.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.employee-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.employee-details div {
+    flex: 1;
+    min-width: 250px;
+    margin: 15px;
+}
+
+.employee-details div p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.details-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    display: block;
+    width: 200px;
+    margin: 30px auto;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .employee-details {
+        flex-direction: column;
+    }
+}

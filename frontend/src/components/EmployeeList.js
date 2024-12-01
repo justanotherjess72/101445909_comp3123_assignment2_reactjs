@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import '../styles/employee-list.css';
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -20,10 +21,20 @@ const EmployeeList = () => {
   return (
     <div>
       <h2>Employee List</h2>
+
+      {/* Add New Employee Button */}
+      <button onClick={() => window.location.href = '/add-employee'}>Add New Employee</button>
+
       <ul>
         {employees.map((employee) => (
-          <li key={employee.id}>
-            <Link to={`/employees/${employee.id}`}>{employee.name}</Link>
+          <li key={employee._id}>
+            {/* Display first name and last name */}
+            <span>{employee.first_name} {employee.last_name}</span>
+
+            {/* "See More Details" button */}
+            <Link to={`/employees/${employee._id}`}>
+              <button>See More Details</button>
+            </Link>
           </li>
         ))}
       </ul>

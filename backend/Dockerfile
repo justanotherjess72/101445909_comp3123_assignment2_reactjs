@@ -1,6 +1,9 @@
 # Use official Node.js image as a base
 FROM node:20
 
+# Install build dependencies for bcrypt
+RUN apt-get update && apt-get install -y build-essential
+
 # Set working directory inside the container
 WORKDIR /usr/src/app
 
@@ -17,4 +20,4 @@ COPY . .
 EXPOSE 5000
 
 # Command to run the app (can vary depending on your setup)
-CMD ["node", "/index.js"]
+CMD ["node", "/server.js"]

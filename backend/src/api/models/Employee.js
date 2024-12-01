@@ -7,9 +7,7 @@ const EmployeeSchema = new mongoose.Schema({
     "position": String,
     "salary": Number,
     "date_of_joining": Date,
-    "department": String,
-    "created_at": Date,
-    "updated_at": Date
+    "department": String
 });
 
 // Update the updated_at field before saving
