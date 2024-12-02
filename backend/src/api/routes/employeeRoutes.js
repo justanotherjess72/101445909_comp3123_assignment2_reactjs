@@ -1,6 +1,6 @@
 const express = require('express');
 const employeeController = require('../controllers/employeeController');
-//const { validateEmployeeData } = require('../middleware/validationMiddleware'); // Import validation middleware -- added in Assignment 2
+const { validateEmployeeData } = require('../middleware/validationMiddleware'); // Import validation middleware -- added in Assignment 2
 
 const router = express.Router();
 

@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const UpdateEmployee = () => {
   const [employee, setEmployee] = useState({
-    name: '',
+    first_name: '',
+    last_name: '',
     department: '',
     position: '',
     salary: ''
   });
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/employees/${id}`);
-        setEmployee(response.data);
+        setEmployee(response.data); // Ensure response.data has fields like first_name, last_name, etc.
       } catch (error) {
         console.error('Error fetching employee data:', error);
       }
@@ -36,7 +37,7 @@ const UpdateEmployee = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:5000/api/employees/${id}`, employee);
-      history.push(`/employees/${id}`);
+      navigate(`/employees/${id}`); // Redirect to employee details page
     } catch (error) {
       console.error('Error updating employee:', error);
     }
@@ -48,10 +49,18 @@ const UpdateEmployee = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
-          value={employee.name}
+          name="first_name"
+          value={employee.first_name}
           onChange={handleChange}
-          placeholder="Name"
+          placeholder="First Name"
+          required
+        />
+        <input
+          type="text"
+          name="last_name"
+          value={employee.last_name}
+          onChange={handleChange}
+          placeholder="Last Name"
           required
         />
         <input

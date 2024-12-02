@@ -5,6 +5,7 @@ import Logout from './components/Logout';
 import EmployeeList from './components/EmployeeList';
 import AddEmployee from './components/AddEmployee';
 import EmployeeDetails from './components/EmployeeDetails';
+import UpdateEmployee from './components/UpdateEmployee';
 
 const SignoutButton = () => {
   const handleSignout = () => {
@@ -45,17 +46,19 @@ const App = () => {
         <Route path="/employee-list" element={isAuthenticated ? <EmployeeList /> : <Navigate to="/login" />} />
         <Route path="/add-employee" element={isAuthenticated ? <AddEmployee /> : <Navigate to="/login" />} />
         <Route path="/employees/:eid" element={isAuthenticated ? <EmployeeDetails /> : <Navigate to="/login" />} />
+        <Route path="/employees/update/:id" element={<UpdateEmployee />} />
 
         {/* Logout route to sign out */}
         <Route path="/logout" element={<Logout />} />
       </Routes>
 
+      
       {/* Show signout button on all pages except the login page */}
-      {isAuthenticated && (
+      {/*isAuthenticated && (
         <div style={{ position: 'relative', height: '100%' }}>
           <SignoutButton />
         </div>
-      )}
+      )*/}
     </Router>
   );
 };

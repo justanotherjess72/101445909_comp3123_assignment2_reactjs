@@ -18,8 +18,26 @@ const EmployeeList = () => {
     fetchEmployees();
   }, []);
 
+  const handleDeleteEmployee = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/employees/${id}`);
+      // After deleting, refresh the employee list
+      setEmployees(employees.filter(employee => employee._id !== id));
+    } catch (error) {
+      console.error('Error deleting employee:', error);
+    }
+  };
+
+  const handleSignOut = () => {
+    // Sign out logic (could be clearing tokens, redirecting to login, etc.)
+    console.log('Signed out');
+  };
+
   return (
     <div>
+      {/* Sign-out button */}
+      <button className="signout-btn" onClick={handleSignOut}>Sign Out</button>
+
       <h2>Employee List</h2>
 
       {/* Add New Employee Button */}
@@ -29,12 +47,20 @@ const EmployeeList = () => {
         {employees.map((employee) => (
           <li key={employee._id}>
             {/* Display first name and last name */}
-            <span>{employee.first_name} {employee.last_name}</span>
+            <span className="employee-name">{employee.first_name} {employee.last_name}</span>
 
             {/* "See More Details" button */}
             <Link to={`/employees/${employee._id}`}>
-              <button>See More Details</button>
+              <button className="details-btn">See More Details</button>
             </Link>
+
+            {/* "Update Info" button */}
+            <Link to={`/employees/update/${employee._id}`}>
+              <button className="update-btn">Update Info</button>
+            </Link>
+
+            {/* "Delete Employee" button */}
+            <button className="delete-btn" onClick={() => handleDeleteEmployee(employee._id)}>Delete Employee</button>
           </li>
         ))}
       </ul>

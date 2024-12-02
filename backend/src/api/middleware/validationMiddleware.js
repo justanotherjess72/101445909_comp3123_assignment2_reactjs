@@ -1,4 +1,4 @@
-//file added in Assignment 2
+// backend/src/api/middleware/validationMiddleware.js
 
 const validateEmployeeData = (req, res, next) => {
     const { first_name, last_name, email, position, salary, date_of_joining, department } = req.body;
@@ -40,5 +40,4 @@ const validateEmployeeData = (req, res, next) => {
     next();
 };
 
-// Export the middleware
 module.exports = { validateEmployeeData };

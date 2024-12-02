@@ -16,7 +16,7 @@ app.use(express.json()); // To parse JSON bodies
 
 // Routes
 app.use('/api/auth', authRoutes); // For authentication routes
-app.use('/api/employees', employeeRoutes); // Add the employee routes
+app.use('/api', employeeRoutes); // Add the employee routes
 
 // Database connection and default admin user setup
 mongoose
